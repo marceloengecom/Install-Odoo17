@@ -140,7 +140,7 @@ sudo apt install git python3-pip python3-dev libxml2-dev libxslt1-dev zlib1g-dev
 
 Instalar dependências WEB (NPM, NodeJS, Less):
 ```sh
-sudo apt install -y npm
+sudo apt install npm -y
 ```
 ```sh
 sudo ln -s /usr/bin/nodejs /usr/bin/node
@@ -156,7 +156,7 @@ sudo apt-get install -y node-less
 
 ## 5. Criar usuário Odoo
 
-Crie um novo usuário chamado odoo17 com seu respectivo diretório home /opt/odoo17. Isso evita os riscos de segurança representados pela execução do Odoo sob o usuário root. Pode ser usado qualquer nome, mas é importante que o usuário PostgreSQL, que será visto mais adiante, deve ter o mesmo nome. Use os seguintes comandos:
+Crie um novo usuário chamado **odoo17** com seu respectivo diretório home **/opt/odoo17**. Isso evita os riscos de segurança representados pela execução do Odoo sob o usuário root. Pode ser usado qualquer nome, mas é importante que o usuário PostgreSQL, que será visto mais adiante, deve ter o mesmo nome. Use os seguintes comandos:
 
 ```sh
 sudo useradd -m -d /opt/odoo17 -U -r -s /bin/bash odoo17
@@ -184,7 +184,7 @@ Caso queira saber a versão instalada, digite o seguinte comando:
 sudo psql -V
 ```
 
-Crie um usuário PostgreSQL com o mesmo nome previamente criado, em nosso caso, odoo17:
+Crie um usuário PostgreSQL com o mesmo nome previamente criado, em nosso caso, **odoo17**:
 ```sh
 sudo su - postgres -c "createuser --encrypted --createdb --createrole --superuser odoo17"
 ```
@@ -209,7 +209,7 @@ sudo chmod 755 /var/log/odoo17
 Os pacotes wkhtmktox fornecem um conjunto de ferramentas de linha de comando de código aberto que podem renderizar HTML em PDF e vários formatos de imagem. Para imprimir relatórios em PDF, você precisará da ferramenta wkhtmltopdf. Odoo 17 requer uma versão superior a 0.12.2 e no **Ubuntu 22.04**, diferente de verões anteriores, o wkHTMLtoPDF foi adicionado ao repositório padrão do sistema operacional.
 
 ```sh
-sudo install wkhtmltopdf
+sudo apt install wkhtmltopdf
 ```
 
 Para verificar a versão instalada, digite o seguinte comando:

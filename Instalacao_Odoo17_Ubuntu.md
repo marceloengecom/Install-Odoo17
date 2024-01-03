@@ -255,7 +255,7 @@ source venv-odoo17/bin/activate
 ```
 
 > Uma vez executado, o prompt do shell deve ficar como mostrado a seguir:
-> *(venv-odoo17) odoo17@seuServidor:~/*
+> *(venv-odoo17) odoo17@seuServidorOdoo:~$*
 
 
 Atualizar gerenciador de pacotes PIP
@@ -266,7 +266,7 @@ pip3 install --upgrade pip
 Instalar todos os módulos python requiridos pelo Odoo com pip:
 
 ```sh
-pip install wheel && pip install -r requirements.txt
+pip install wheel && pip install -r server/requirements.txt
 ```
 
 > Nota: Se for encontrado qualquer erro de compilação durante a instalação, tenha certeza de que você tem todas as requeridas depend~encias instaladas, listadas no início da seção

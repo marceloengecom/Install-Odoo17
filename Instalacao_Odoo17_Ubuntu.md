@@ -189,6 +189,13 @@ Crie um usuário PostgreSQL com o mesmo nome previamente criado, em nosso caso, 
 sudo su - postgres -c "createuser --encrypted --createdb --createrole --superuser odoo17"
 ```
 
+> Nota: Por padrão, o PostgreSQL só permite conexão por soquetes UNIX e conexões loopback. O soquete UNIX é bom se você desejar que o Odoo e o PostgreSQL sejam executados no mesmo servidor, mas se você precisar que Odoo e PostgreSQL executem em servidores diferentes, é necessário configurar o PostgreSQL para aceitar outras conexões de rede.
+> 
+> Os arquivos *pg_hba.conf* e *postgresql.conf*, necessitarão ser ajustados.
+
+
+
+
 
 
 ## 7. Criar pasta para armazenamento de LOGs. Vamos usar o mesmo nome do usuário, usado anteriormente.
@@ -255,10 +262,11 @@ source venv-odoo17/bin/activate
 ```
 
 > Uma vez executado, o prompt do shell deve ficar como mostrado a seguir:
+> 
 > *(venv-odoo17) odoo17@seuServidorOdoo:~$*
 
 
-Atualizar gerenciador de pacotes PIP
+Atualizar o gerenciador de pacotes PIP
 ```sh
 pip3 install --upgrade pip
 ```
@@ -293,7 +301,7 @@ Desative o ambiente virtual, usando o seguinte comando:
 deactivate
 ```
 > Note, no prompt do shell, que o ambiente virtual não é mais mostrado e o usuário do Odoo continua ativo
-> *odoo17@seuServidor:~/server$*
+> *odoo17@seuServidorOdoo:~$*
 
 
 
@@ -314,7 +322,7 @@ Volte para o seu usuário sudo:
 exit
 ```
 > Confira, no prompt do shell, se vocês voltou a estar com seu superusuário (root ou outro) ativo
-> *root@seuServidor:~#*
+> *root@seuServidorOdoo:~#*
 
 
 
@@ -338,20 +346,20 @@ sudo nano /etc/odoo/odoo17-server.conf
 ```ini
 [options]
 ; admin_password é uma senha de autenticação, definida por você, para operação relacionada ao banco de dados que permite criar, restaurar, remover. Escolha uma senha segura e anote-a.
-admin_passwd = SuaSenhaAdmin
-db_host = localhost
-db_port = 5432
+admin_passwd = admin
+db_host = False
+db_port = False
 db_user = odoo17
 db_password = False
-addons_path = /opt/odoo17/server/addons,/opt/odoo17/server/custom-addons
 xmlrpc_port = 8069
+addons_path = /opt/odoo17/server/addons,/opt/odoo17/server/custom-addons
 logfile = /var/log/odoo17/odoo-server.log
 logrotate = True
 log_level  = debug
 ```
 Saia do editor, salvando o arquivo.
 
-> Nota: Não se esqueça de definir **SuaSenhaAdmin** para algo mais seguro.
+> Nota: Não se esqueça de definir a senha **admin** para algo mais seguro.
 
 
 
@@ -409,9 +417,17 @@ sudo systemctl status odoo17
 > A saída deste comando deve ser semelhante a esta:
 >
 > ● odoo17.service - Odoo17 Community Edition
-     Loaded: loaded (/etc/systemd/system/odoo17.service; enabled; vendor preset: enabled)
-     Active: active (running) since Tue 2023-13-30 03:430:28 UTC; 28s ago
-... 
+>     Loaded: loaded (/etc/systemd/system/odoo17.service; enabled; vendor preset: enabled)
+>     Active: active (running) since Wed 2024-01-03 21:51:22 -03; 2s ago
+>   Main PID: 37715 (python3)
+>      Tasks: 1 (limit: 2220)
+>     Memory: 44.2M
+>        CPU: 2.056s
+>     CGroup: /system.slice/odoo17.service
+>             └─37715 /opt/odoo17/venv-odoo17/bin/python3 /opt/odoo17/server/odoo-bin -c /etc/odoo/odoo17-server.conf
+>
+>jan 03 21:51:22 seuServidorOdoo systemd[1]: Started Odoo17 Community Edition.
+> 
 
 
 Se desejar visualizar as mensagens registradas do serviço, use o comando a seguir:
@@ -423,9 +439,12 @@ sudo journalctl -u odoo17
 
 ## 13. Testando a Instalação
 
-OAbra o seu navegador web e digite o seu endereço e respectiva porta do Odoo: 'http://<your_domain_or_IP_address>:8069'
+OAbra o seu navegador web e digite o seu endereço e respectiva porta do Odoo: 'http://<SeuDominio_ou_EndereçoIP>:8069'
 
 Assumindo que a instalação foi um sucesso, uma tela similar a mostrada abaixo deve surgir e você poderá configurar o seu banco de dados
+
+
+![Getting Started](imagens/PrimeiroAcesso-Odoo.jpg)
 
 
 

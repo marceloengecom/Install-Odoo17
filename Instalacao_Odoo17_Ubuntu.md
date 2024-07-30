@@ -189,8 +189,7 @@ sudo su - postgres -c "createuser --encrypted --createdb --createrole --superuse
 ```
 
 > Nota: Por padrão, o PostgreSQL só permite conexão por soquetes UNIX e conexões loopback. O soquete UNIX é bom se você desejar que o Odoo e o PostgreSQL sejam executados no mesmo servidor, mas se você precisar que Odoo e PostgreSQL executem em servidores diferentes, é necessário configurar o PostgreSQL para aceitar outras conexões de rede.
-> 
-> Os arquivos *pg_hba.conf* e *postgresql.conf*, necessitarão ser ajustados.
+> Nesse último caso, que não é objetivo deste tutorial, os arquivos *pg_hba.conf* e *postgresql.conf*, necessitarão ser ajustados. 
 
 
 

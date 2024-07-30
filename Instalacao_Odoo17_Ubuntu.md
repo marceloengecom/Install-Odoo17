@@ -40,14 +40,16 @@ sudo python3 --version
 ## 3. Definir regras de firewall UFW (Uncomplicated Firewall)
 Precisaremos que somente as portas 22, 80, 443, 6010, 5432, 8069 e 8072 estejam abertas para acesso externo. 22 é usado para SSH, 80 é para HTTP, 443 é para HTTPS, 6010 é usado para comunicação Odoo, 5432 é usado pelo PostgreSQL, 8069 é usado pelo aplicativo de servidor Odoo e 8072 é Long Polling.
 
-Por padrão, o firewall UFW pode estar desabilitado e para evitar desconexões involuntárias, vamos manter desabilitado:
+> Nota: Long Polling é uma tecnologia em que o cliente solicita informações do servidor sem esperar uma resposta imediata ou basicamente envolve fazer uma solicitação HTTP a um servidor e, em seguida, manter a conexão aberta para permitir que o servidor responda mais tarde.
+
+Para evitar desconexões involuntárias, vamos manter o firewall UFW desabilitado:
 ```sh
 sudo ufw disable
 ```
 
 Por padrão, o UFW é configurado para negar todas as conexões de entrada e permitir todas as conexões de saída. Isso significa que qualquer um que tentasse acessar o seu servidor não conseguiria conectar-se, ao passo que os aplicativos dentro do servidor conseguiriam alcançar o mundo exterior.
 
-Vamos retornar as regras do seu UFW para as configurações padrão:
+Vamos definir as regras do seu UFW para essas configurações padrão:
 ```sh
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
@@ -55,7 +57,7 @@ sudo ufw default allow outgoing
 
 Permita conexão com o protocolo SSH:
 ```sh
-sudo ufw allow 22
+sudo ufw allow 22/tcp
 ```
 
 > Nota: Caso utilize um porta diferente do padrão para algum dos serviços descritos no início dessa etapa, atualize a respectiva regra de firewall. Ex: Se utilizar a porta 2222 para SSH, libere essa porta ao invés da 22.
@@ -111,14 +113,14 @@ sudo ufw status
 > Status: active
 > To                         Action      From
 > --                         ------      ----
-> 22                         ALLOW       Anywhere                  
+> 22/tcp                     ALLOW       Anywhere                  
 > 80/tcp                     ALLOW       Anywhere                  
 > 443/tcp                    ALLOW       Anywhere                  
 > 5432/tcp                   ALLOW       Anywhere
 > 6010/tcp                   ALLOW       Anywhere                  
 > 8069/tcp                   ALLOW       Anywhere                  
 > 8072/tcp                   ALLOW       Anywhere                  
-> 22 (v6)                    ALLOW       Anywhere (v6)
+> 22/tcp (v6)                ALLOW       Anywhere (v6)
 > 80/tcp (v6)                ALLOW       Anywhere (v6)             
 > 443/tcp (v6)               ALLOW       Anywhere (v6)             
 > 5432/tcp (v6)              ALLOW       Anywhere (v6)             
@@ -126,9 +128,6 @@ sudo ufw status
 > 8069/tcp (v6)              ALLOW       Anywhere (v6)             
 > 8072/tcp (v6)              ALLOW       Anywhere (v6)
 
-
-
-> Nota: Long Polling é uma tecnologia em que o cliente solicita informações do servidor sem esperar uma resposta imediata ou basicamente envolve fazer uma solicitação HTTP a um servidor e, em seguida, manter a conexão aberta para permitir que o servidor responda mais tarde.
 
 
 ## 4. Instalação de ferramentas para instalação das dependências necessárias

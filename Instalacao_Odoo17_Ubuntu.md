@@ -386,7 +386,7 @@ SyslogIdentifier=odoo17
 PermissionsStartOnly=true
 User=odoo17
 Group=odoo17
-ExecStart=/opt/odoo17/venv-odoo17/bin/python3 /opt/odoo17/odoo17/odoo-bin -c /etc/odoo/odoo17-server.conf
+ExecStart=/opt/odoo17/venv-odoo17/bin/python3 /opt/odoo17/server/odoo-bin -c /etc/odoo/odoo17-server.conf
 StandardOutput=journal+console
 
 [Install]

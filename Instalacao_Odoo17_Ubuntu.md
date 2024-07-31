@@ -344,7 +344,7 @@ sudo nano /etc/odoo/odoo17-server.conf
 ```ini
 [options]
 ; admin_password é uma senha de autenticação, definida por você, para operação relacionada ao banco de dados que permite criar, restaurar, remover. Escolha uma senha segura e anote-a.
-admin_passwd = admin
+admin_passwd = SenhaSegura
 db_host = False
 db_port = False
 db_user = odoo17
@@ -357,7 +357,8 @@ log_level  = debug
 ```
 Saia do editor, salvando o arquivo.
 
-> Nota: Não se esqueça de definir a senha **admin** para algo mais seguro.
+> Nota: Substitua **SenhaSegura** por algo mais complexo e mais robusto. Essa é a senha mestre que você precisará ao configurar o Odoo.
+
 
 
 
@@ -385,7 +386,7 @@ SyslogIdentifier=odoo17
 PermissionsStartOnly=true
 User=odoo17
 Group=odoo17
-ExecStart=/opt/odoo17/venv-odoo17/bin/python3 /opt/odoo17/server/odoo-bin -c /etc/odoo/odoo17-server.conf
+ExecStart=/opt/odoo17/venv-odoo17/bin/python3 /opt/odoo17/odoo17/odoo-bin -c /etc/odoo/odoo17-server.conf
 StandardOutput=journal+console
 
 [Install]
